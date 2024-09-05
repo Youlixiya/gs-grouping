@@ -1,0 +1,7 @@
+data
+ckpts
+output
+*__pycache__
+submodules/
+Tracking-Anything-with-DEVA/saves
+Tracking-Anything-with-DEVA/example
