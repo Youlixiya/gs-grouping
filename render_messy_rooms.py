@@ -125,7 +125,7 @@ def render_sets(dataset : ModelParams, iteration : int, pipeline : PipelineParam
         sam_predictor = SamPredictor(sam)
 
         # Text prompt
-        # if 'bed' in dataset.model_path:
+        # if 'large_corridor_25' in dataset.model_path:
         #     if args.reasoning:
         #         positive_input = "which is the yellow fruit;which can be worn on the foot;which can be used to take photos;which is the part of person, excluding other objects;which is red and leather;where is a good place to lie down"
         #     else:
@@ -142,7 +142,25 @@ def render_sets(dataset : ModelParams, iteration : int, pipeline : PipelineParam
         #         positive_input = "red apple;New York Yankees cap;stapler;black headphone;hand soap;green lawn"
         # else:
         #     raise NotImplementedError   # You can provide your text prompt here
-        positive_input = "what is a white animal doll;which is bottle shaped;which is box with fruit patterns printed on it;which is bucket shaped,made of plastic;which is gray and square,you can put things in it"
+        if 'large_corridor_25' in dataset.model_path:
+            if args.reasoning:
+                positive_input = "which is an object used for planting;which is an object used for comfort;which is an white bottle-shaped object;which is a brown object that can be used for eating;which is a blue object with dinosaur print"
+                # positive_input = "what is a white animal doll;which is bottle shaped;which is box with fruit patterns printed on it;which is bucket shaped,made of plastic;which is gray and square,you can put things in it"
+            else:
+                positive_input = "green pot;white plush doll;white bottle;brown bowl;blue lunch box"
+        elif 'large_corridor_50' in dataset.model_path:
+            if args.reasoning:
+                positive_input = "which is a black and white object that can be worn on the feet;which is a blue object used for carrying items with balls patterns on it;which is a brown object used for storing and organizing items;which is a black object used for connecting electronic devices;which is a colorful object used for telling time"
+                # positive_input = "which is square and made of wood;which is a device for measuring time;which is a bag with balls patterns printed on it;which is a dark blue shoe with stripes;which is a brown doll with four legs"
+            else:
+                positive_input = "black and white shoe;blue bag;wooden box;black cable;colorful clock"
+        elif 'large_corridor_100' in dataset.model_path:
+            if args.reasoning:
+                positive_input = "which is a white object that can be worn on the feet;which is a blue and yellow object that can be worn on the feet;which is a blue and white object that can be used for wiping;which is a green object with holes that can be used for storage;which is a red and blue object appearing in games"
+                # positive_input = "which is white and black and to wear on the feet;which is blue and yellow and to wear on the feet;which is a carton character doll;which is blue and used to wipe face;which is big,green,used for growing plants and made of several parts"
+            else:
+                positive_input = "white and black shoe;blue and yellow sandal;blue and white striped towel;green plastic box;red and blue doll"
+
         positives = positive_input.split(";")
         print("Text prompts:    ", positives)
 

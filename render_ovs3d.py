@@ -129,27 +129,35 @@ def render_sets(dataset : ModelParams, iteration : int, pipeline : PipelineParam
         # Text prompt
         if 'bed' in dataset.model_path:
             if args.reasoning:
-                positive_input = "which is the yellow fruit;which can be worn on the foot;which can be used to take photos;which is the part of person, excluding other objects;which is red and leather;where is a good place to lie down"
+                positive_input ="which is a fruit with a yellow peel;which is an object that can be worn on the feet;which is a device used for taking pictures;which is a part of the human body;which is red,leathern object used to put items in;which is a piece of fabric used for covering a bed"
+                # positive_input = "which is a yellow fruit often eaten as a snack;which is a black shoe with a gold buckle;which is a device used for taking pictures;which is a part of the human body used for holding objects;which is a red bag with a quilted pattern;which is a white sheet with black lines"
+                # positive_input = "which is the yellow fruit;which can be worn on the foot;which can be used to take photos;which is the part of person, excluding other objects;which is red and leather;where is a good place to lie down"
             else:
                 positive_input = "banana;black leather shoe;camera;hand;red bag;white sheet"
         elif 'bench' in dataset.model_path:
             if args.reasoning:
-                positive_input = "which is a cute humanoid doll that girls like;which is green fruit;which one is the model of the vehicle;which is an animal;which is made of many stones;which is like baked food;which is made of wood"
+                positive_input = "which is an object used for dressing up;which is a fruit that is green;which is a small vehicle used for off-road driving;which is an animal that is orange;which is a wall made of pebbled concrete;which is a dessert that is a Portuguese egg tart;which is an object made of wood"
+                # positive_input = "which is a toy used for dressing up;which is a green fruit that grows in clusters;which is a small toy car designed for off-road use;which is a feline with orange fur;which is a wall made of concrete with embedded pebbles;which is a pastry with a custard filling;which is a material used for building and furniture"
+                # positive_input = "which is a cute humanoid doll that girls like;which is green fruit;which one is the model of the vehicle;which is an animal;which is made of many stones;which is like baked food;which is made of wood"
             else:
                 positive_input = "dressing doll;green grape;mini offroad car;orange cat;pebbled concrete wall;Portuguese egg tart;wood"
         elif 'lawn' in dataset.model_path:
             if args.reasoning:
-                positive_input = "which is the red fruit;which is worn on the head and is white;which is small device used for stapling paper;which can convert electric signals into sounds;which is bottled;which is an area of ground covered in short grass"
+                positive_input = "which is a red fruit rich in vitamins;which is a cap with a sports team logo;which is a device used for fastening paper;which is a black device used for listening to audio;which is a liquid used for cleaning hands;which is a green grassy area"
+                # positive_input = "which is the red fruit;which is worn on the head and is white;which is small device used for stapling paper;which can convert electric signals into sounds;which is bottled;which is an area of ground covered in short grass"
             else:
                 positive_input = "red apple;New York Yankees cap;stapler;black headphone;hand soap;green lawn"
         elif 'room' in dataset.model_path:
             if args.reasoning:
-                positive_input = "which is red table;which is a yellow animal doll;which can be uesd to hold a water bottle;which has long grey ears;which has a long tail;which is spherical and white"
+                positive_input = "which is a type of material used for furniture and construction;which is a toy that makes a loud noise when squeezed;which is a container made from woven materials;which is a small, furry animal with long ears;which is a prehistoric creature that lived millions of years ago;which is a round, white ball used in a sport"
+                # positive_input = "which is background wood board;which is a yellow animal doll;which can be uesd to hold a water bottle;which is a cute mammal doll;which has a long tail;which is spherical and white"
             else:
                 positive_input = "wood;shrilling chicken;weaving basket;rabbit;dinosaur;baseball"
         elif 'sofa' in dataset.model_path:
             if args.reasoning:
-                positive_input = "which is the yellow doll;what is made of cards stacked together;where can I sit down;which is red and looks like a controller;which is a robot toy;which can be used to play games and is large and white"
+                positive_input = "which is a yellow electric-type creature;which is a deck of playing cards;which is a piece of furniture;which is a handheld gaming device;which is a model of a robot;which is a device used to play video games"
+                # positive_input = "which is a yellow plush toy with a hat;which is a deck of cards with a colorful design;which is a piece of furniture with a soft, grey surface;which is a red handheld gaming device;which is a blue and white action figure;which is a white gaming controller with buttons and joysticks"
+                # positive_input = "which is the yellow doll;what is made of cards stacked together;where can I sit down;which is red and looks like a controller;which is the body of a robot model;which can be used to play games and is large and white"
             else:
                 positive_input = "Pikachu;a stack of UNO cards;grey sofa;a red Nintendo Switch joy-con controller;Gundam;Xbox wireless controller"                   
         else:

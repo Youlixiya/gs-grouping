@@ -34,6 +34,15 @@ python render.py -m output/${dataset_name} --num_classes 256 --images images
 # CUDA_VISIBLE_DEVICES=3 python render_ovs3d.py -m output/ovs3d/lawn --num_classes 256 --skip_train
 # CUDA_VISIBLE_DEVICES=3 python render_ovs3d.py -m output/ovs3d/lawn --num_classes 256 --reasoning --skip_train
 
-
+# large_corridor_25
 CUDA_VISIBLE_DEVICES=1 python train.py  -s data/messy_rooms/large_corridor_25 -m output/messy_rooms/large_corridor_25 --config_file config/gaussian_dataset/train.json
 CUDA_VISIBLE_DEVICES=1 python render_messy_rooms.py -m output/messy_rooms/large_corridor_25 --num_classes 256 --skip_train
+CUDA_VISIBLE_DEVICES=1 python render_messy_rooms.py -m output/messy_rooms/large_corridor_25 --num_classes 256 --reasoning --skip_train
+# large_corridor_50
+CUDA_VISIBLE_DEVICES=1 python train.py  -s data/messy_rooms/large_corridor_50 -m output/messy_rooms/large_corridor_50 --config_file config/gaussian_dataset/train.json
+CUDA_VISIBLE_DEVICES=2 python render_messy_rooms.py -m output/messy_rooms/large_corridor_50 --num_classes 256 --skip_train
+CUDA_VISIBLE_DEVICES=2 python render_messy_rooms.py -m output/messy_rooms/large_corridor_50 --num_classes 256 --reasoning --skip_train
+# large_corridor_100
+CUDA_VISIBLE_DEVICES=2 python train.py  -s data/messy_rooms/large_corridor_100 -m output/messy_rooms/large_corridor_100 --config_file config/gaussian_dataset/train.json
+CUDA_VISIBLE_DEVICES=3 python render_messy_rooms.py -m output/messy_rooms/large_corridor_100 --num_classes 256 --skip_train
+CUDA_VISIBLE_DEVICES=3 python render_messy_rooms.py -m output/messy_rooms/large_corridor_100 --num_classes 256 --reasoning --skip_train

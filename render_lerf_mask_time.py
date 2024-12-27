@@ -7,6 +7,8 @@
 # GRAPHDECO research group, https://team.inria.fr/graphdeco
 
 import torch
+import torch.nn.functional as F 
+import time
 from scene import Scene
 import os
 from tqdm import tqdm
@@ -28,68 +30,24 @@ from render import feature_to_rgb, visualize_obj
 
 
 def render_set(model_path, name, iteration, views, gaussians, pipeline, background, classifier, groundingdino_model, sam_predictor, TEXT_PROMPT, reasoning, threshold=0.2):
-    if reasoning:
-        reasoning_path = 'reasoning'
-    else:
-        reasoning_path = ''
-    render_path = os.path.join(model_path, name, "ours_{}_text".format(iteration), reasoning_path, "renders")
-    gts_path = os.path.join(model_path, name, "ours_{}_text".format(iteration), reasoning_path, "gt")
-    colormask_path = os.path.join(model_path, name, "ours_{}_text".format(iteration), reasoning_path, "objects_feature16")
-    pred_obj_path = os.path.join(model_path, name, "ours_{}_text".format(iteration), reasoning_path, "test_mask")
-    pred_mask_map_path = os.path.join(model_path, name, "ours_{}_text".format(iteration), reasoning_path,"test_mask_map")
-    makedirs(render_path, exist_ok=True)
-    makedirs(gts_path, exist_ok=True)
-    makedirs(colormask_path, exist_ok=True)
-    makedirs(pred_obj_path, exist_ok=True)
-    makedirs(pred_mask_map_path, exist_ok=True)
 
-    # Use Grounded-SAM on the first frame
-    results0 = render(views[0], gaussians, pipeline, background)
-    rendering0 = results0["render"]
-    rendering_obj0 = results0["render_object"]
-    logits = classifier(rendering_obj0)
-    pred_obj = torch.argmax(logits,dim=0)
 
-    image = (rendering0.permute(1,2,0) * 255).cpu().numpy().astype('uint8')
-    text_mask, annotated_frame_with_mask = grouned_sam_output(groundingdino_model, sam_predictor, TEXT_PROMPT, image)
-    Image.fromarray(annotated_frame_with_mask).save(os.path.join(render_path[:-8],'grounded-sam---'+TEXT_PROMPT+'.png'))
-    selected_obj_ids = select_obj_ioa(pred_obj, text_mask)
-
-    for idx, view in enumerate(tqdm(views, desc="Rendering progress")):
-        pred_obj_img_path = os.path.join(pred_obj_path,str(idx))
-        pred_mask_map_img_path = os.path.join(pred_mask_map_path,str(idx))
-        makedirs(pred_obj_img_path, exist_ok=True)
-        makedirs(pred_mask_map_img_path, exist_ok=True)
+    view = views[0]
+    t = []
+    for i in tqdm(range(100)):
+        t1 = time.time()
         results = render(view, gaussians, pipeline, background)
         rendering = results["render"]
         rendering_obj = results["render_object"]
+        # logits = classifier(rendering_obj)
         logits = classifier(rendering_obj)
+        pred_obj = torch.argmax(logits,dim=0)
 
-        if len(selected_obj_ids) > 0:
-            prob = torch.softmax(logits,dim=0)
-
-            pred_obj_mask = prob[selected_obj_ids, :, :] > threshold
-            pred_obj_mask_bool = pred_obj_mask.any(dim=0)
-            pred_obj_mask = (pred_obj_mask_bool.squeeze().cpu().numpy() * 255).astype(np.uint8)
-        else:
-            pred_obj_mask_bool = torch.zeros_like(view.objects, dtype=torch.bool)
-            pred_obj_mask = torch.zeros_like(view.objects).cpu().numpy()
-            
-        pred_mask_map = rendering.clone()
-        pred_mask_map[:, pred_obj_mask_bool] = pred_mask_map[:, pred_obj_mask_bool] * 0.5 + torch.tensor([[1, 0, 0]], device='cuda').reshape(3, 1) * 0.5
-        pred_mask_map[:, ~pred_obj_mask_bool] /= 2
-        gt_objects = view.objects
-        gt_rgb_mask = visualize_obj(gt_objects.cpu().numpy().astype(np.uint8))
-
-        rgb_mask = feature_to_rgb(rendering_obj)
-        Image.fromarray(rgb_mask).save(os.path.join(colormask_path, '{0:05d}'.format(idx) + ".png"))
-        Image.fromarray(pred_obj_mask).save(os.path.join(pred_obj_img_path, TEXT_PROMPT + ".png"))
-        print(os.path.join(pred_obj_img_path, TEXT_PROMPT + ".png"))
-        gt = view.original_image[0:3, :, :]
-        torchvision.utils.save_image(rendering, os.path.join(render_path, '{0:05d}'.format(idx) + ".png"))
-        torchvision.utils.save_image(gt, os.path.join(gts_path, '{0:05d}'.format(idx) + ".png"))
-        torchvision.utils.save_image(pred_mask_map, os.path.join(pred_mask_map_img_path, TEXT_PROMPT + ".png"))
-
+        t2 = time.time() - t1
+        t.append(t2)
+    t_average = sum(t) / len(t)
+    fps_average = 1 / t_average
+    print(f't_average = {t_average},fps_average = {fps_average}')
 
 
 def render_sets(dataset : ModelParams, iteration : int, pipeline : PipelineParams, skip_train : bool, skip_test : bool, args):

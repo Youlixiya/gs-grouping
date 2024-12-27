@@ -79,27 +79,65 @@ biou_scores = {}
 class_counts = {}  # Count the number of times each class appears
 
 # prompt_dict
-                                
-
-
-
-
-
-
-
-
 if dataset_name == 'bed':
-    prompt_dict = {"banana":"which is the yellow fruit" ,"black leather shoe":"which can be worn on the foot","camera":"which can be used to take photos","hand":"which is the part of person, excluding other objects","red bag":"which is red and leather","white sheet":"where is a good place to lie down"}
+    prompt_dict = {'banana':'which is a fruit with a yellow peel',
+  'black leather shoe': 'which is an object that can be worn on the feet',
+  'camera': 'which is a device used for taking pictures',
+  'hand': 'which is a part of the human body',
+  'red bag': 'which is red,leathern object used to put items in',
+  'white sheet': 'which is a piece of fabric used for covering a bed'}
+    # prompt_dict = {"banana":"which is a yellow fruit often eaten as a snack","black leather shoe":"which is a black shoe with a gold buckle","camera":"which is a device used for taking pictures","hand":"which is a part of the human body used for holding objects","red bag":"which is a red bag with a quilted pattern","white sheet":"which is a white sheet with black lines"}
+    # prompt_dict = {"banana":"which is the yellow fruit" ,"black leather shoe":"which can be worn on the foot","camera":"which can be used to take photos","hand":"which is the part of person, excluding other objects","red bag":"which is red and leather","white sheet":"where is a good place to lie down"}
 #     # index_dict = {"00":"0","04":"1","10":"2","23":"3","30":"4"}
 elif dataset_name == 'bench':
-    prompt_dict = {"dressing doll":"which is a cute humanoid doll that girls like","green grape":"which is green fruit", "mini offroad car":"which one is the model of the vehicle","orange cat":"which is an animal","pebbled concrete wall":"which is made of many stones", "Portuguese egg tart":"which is like baked food","wood":"which is made of wood"}
+    prompt_dict = {"dressing doll": "which is an object used for dressing up",
+  "green grape": "which is a fruit that is green",
+  "mini offroad car": "which is a small vehicle used for off-road driving",
+  "orange cat": "which is an animal that is orange",
+  "pebbled concrete wall": "which is a wall made of pebbled concrete",
+  "Portuguese egg tart": "which is a dessert that is a Portuguese egg tart",
+  "wood": "which is the object made of wood"}
+    # prompt_dict = {"dressing doll":"which is a toy used for dressing up","green grape":"which is a green fruit that grows in clusters","mini offroad car":"which is a small toy car designed for off-road use","orange cat":"which is a feline with orange fur","pebbled concrete wall":"which is a wall made of concrete with embedded pebbles","Portuguese egg tart":"which is a pastry with a custard filling","wood":"which is a material used for building and furniture"}
+    # prompt_dict = {"dressing doll":"which is a cute humanoid doll that girls like","green grape":"which is green fruit", "mini offroad car":"which one is the model of the vehicle","orange cat":"which is an animal","pebbled concrete wall":"which is made of many stones", "Portuguese egg tart":"which is like baked food","wood":"which is made of wood"}
 #     index_dict = {"02":"0","05":"4","25":"3","27":"1","32":"2"}
 elif dataset_name == 'sofa':
-    prompt_dict = {"Pikachu":"which is the yellow doll","a stack of UNO cards":"what is made of cards stacked together", "grey sofa":"where can I sit down","a red Nintendo Switch joy-con controller":"which is red and looks like a controller","Gundam":"which is a robot toy","Xbox wireless controller":"which can be used to play games and is large and white"}
+    prompt_dict = {'Pikachu': 'which is a yellow electric-type creature',
+  'a stack of UNO cards': 'which is a deck of playing cards',
+  'grey sofa': 'which is a piece of furniture',
+  'a red Nintendo Switch joy-con controller': 'which is a handheld gaming device',
+  'Gundam': 'which is a model of a robot',
+  'Xbox wireless controller': 'which is a device used to play video games'}
+    # prompt_dict = {"Pikachu":"which is a yellow plush toy with a hat","a stack of UNO cards":"which is a deck of cards with a colorful design","grey sofa":"which is a piece of furniture with a soft, grey surface","a red Nintendo Switch joy-con controller":"which is a red handheld gaming device","Gundam":"which is a blue and white action figure","Xbox wireless controller":"which is a white gaming controller with buttons and joysticks"}
+    # prompt_dict = {"Pikachu":"which is the yellow doll","a stack of UNO cards":"what is made of cards stacked together", "grey sofa":"where can I sit down","a red Nintendo Switch joy-con controller":"which is red and looks like a controller","Gundam":"which is the body of a robot model","Xbox wireless controller":"which can be used to play games and is large and white"}
 # 
+elif dataset_name == 'room':
+    prompt_dict = {"wood":"which is a type of material used for furniture and construction","shrilling chicken":"which is a toy that makes a loud noise when squeezed","weaving basket":"which is a container made from woven materials","rabbit":"which is a small, furry animal with long ears","dinosaur":"which is a prehistoric creature that lived millions of years ago","baseball":"which is a round, white ball used in a sport"}
+    # prompt_dict = {"wood":"which is background wood board", "shrilling chicken":"which is a yellow animal doll", "weaving basket":"which can be uesd to hold a water bottle","rabbit":"which is a cute mammal doll","dinosaur":"which has a long tail","baseball":"which is spherical and white"}
+#                          
 elif dataset_name == 'lawn':
-    prompt_dict = {"red apple":"which is the red fruit","New York Yankees cap":"which is worn on the head and is white","stapler":"which is small device used for stapling paper","black headphone":"which can convert electric signals into sounds","hand soap":"which is bottled", "green lawn":"which is an area of ground covered in short grass"}
+    prompt_dict = {"red apple":"which is a red fruit rich in vitamins","New York Yankees cap":"which is a cap with a sports team logo","stapler":"which is a device used for fastening paper","black headphone":"which is a black device used for listening to audio","hand soap":"which is a liquid used for cleaning hands","green lawn":"which is a green grassy area"}
+    # prompt_dict = {"red apple":"which is the red fruit","New York Yankees cap":"which is worn on the head and is white","stapler":"which is small device used for stapling paper","black headphone":"which can convert electric signals into sounds","hand soap":"which is bottled", "green lawn":"which is an area of ground covered in short grass"}
 #     index_dict = {"01":"2","03":"1","09":"0","13":"4","29":"3"}
+
+elif dataset_name == 'large_corridor_25':
+    prompt_dict = {"green pot": "which is an object used for planting",
+     "white plush doll": "which is an object used for comfort",
+      "white bottle": "which is an white bottle-shaped object",
+     "brown bowl": 'which is a brown object that can be used for eating', 
+     "blue lunch box": 'which is a blue object with dinosaur print'}
+elif dataset_name == 'large_corridor_50':
+    prompt_dict = {'colorful clock':'which is a colorful object used for telling time',
+    'black and white shoe':'which is a black and white object that can be worn on the feet',
+    'blue bag':'which is a blue object used for carrying items with balls patterns on it',
+    'wooden box':'which is a brown object used for storing and organizing items',
+    'black cable':'which is a black object used for connecting electronic devices'}
+elif dataset_name == 'large_corridor_100':
+    prompt_dict = {"white and black shoe":"which is a white object that can be worn on the feet",
+    "blue and yellow sandal":"which is a blue and yellow object that can be worn on the feet",
+    "blue and white striped towel":"which is a blue and white object that can be used for wiping",
+    "green plastic box":"which is a green object with holes that can be used for storage",
+    "red and blue doll":"which is a red and blue object appearing in games"}
+
 
 # Iterate over each image and category in the GT dataset
 for image_name in os.listdir(gt_folder_path):

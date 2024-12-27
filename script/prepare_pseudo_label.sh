@@ -73,6 +73,32 @@ cp -r ./example/output_gaussian_dataset/lawn/Annotations ../data/ovs3d/lawn/obje
 
 CUDA_VISIBLE_DEVICES=1 python demo/demo_automatic.py \
   --chunk_size 4 \
+  --img_path "../data/ovs3d/sofa/images_4" \
+  --amp \
+  --temporal_setting semionline \
+  --size 480 \
+  --output "./example/output_gaussian_dataset/sofa" \
+  --use_short_id  \
+  --suppress_small_objects  \
+  --SAM_PRED_IOU_THRESHOLD 0.7
+
+cp -r ./example/output_gaussian_dataset/sofa/Annotations ../data/ovs3d/sofa/object_mask
+
+CUDA_VISIBLE_DEVICES=2 python demo/demo_automatic.py \
+  --chunk_size 4 \
+  --img_path "../data/ovs3d/room/images_4" \
+  --amp \
+  --temporal_setting semionline \
+  --size 480 \
+  --output "./example/output_gaussian_dataset/room" \
+  --use_short_id  \
+  --suppress_small_objects  \
+  --SAM_PRED_IOU_THRESHOLD 0.7
+
+cp -r ./example/output_gaussian_dataset/room/Annotations ../data/ovs3d/room/object_mask
+
+CUDA_VISIBLE_DEVICES=1 python demo/demo_automatic.py \
+  --chunk_size 4 \
   --img_path "../data/messy_rooms/large_corridor_25/images" \
   --amp \
   --temporal_setting semionline \
@@ -86,26 +112,60 @@ cp -r ./example/output_gaussian_dataset/large_corridor_25/Annotations ../data/me
 
 CUDA_VISIBLE_DEVICES=1 python demo/demo_automatic.py \
   --chunk_size 4 \
-  --img_path "../data/ovs3d/sofa/images_4" \
+  --img_path "../data/messy_rooms/large_corridor_50/images" \
   --amp \
   --temporal_setting semionline \
   --size 480 \
-  --output "./example/output_gaussian_dataset/sofa" \
+  --output "./example/output_gaussian_dataset/large_corridor_50" \
   --use_short_id  \
   --suppress_small_objects  \
   --SAM_PRED_IOU_THRESHOLD 0.7
 
-cp -r ./example/output_gaussian_dataset/sofa/Annotations ../data/ovs3d/sofa/object_mask
+cp -r ./example/output_gaussian_dataset/large_corridor_50/Annotations ../data/messy_rooms/large_corridor_50/object_mask
 
 CUDA_VISIBLE_DEVICES=1 python demo/demo_automatic.py \
   --chunk_size 4 \
-  --img_path "../data/ovs3d/room/images_4" \
+  --img_path "../data/messy_rooms/large_corridor_100/images" \
   --amp \
   --temporal_setting semionline \
   --size 480 \
-  --output "./example/output_gaussian_dataset/room" \
+  --output "./example/output_gaussian_dataset/large_corridor_100" \
   --use_short_id  \
   --suppress_small_objects  \
   --SAM_PRED_IOU_THRESHOLD 0.7
 
-cp -r ./example/output_gaussian_dataset/room/Annotations ../data/ovs3d/room/object_mask
+cp -r ./example/output_gaussian_dataset/large_corridor_100/Annotations ../data/messy_rooms/large_corridor_100/object_mask
+
+CUDA_VISIBLE_DEVICES=1 python demo/demo_automatic.py \
+  --chunk_size 4 \
+  --img_path "../data/dynerf/coffee_martini/tmp_video" \
+  --amp \
+  --temporal_setting semionline \
+  --size 480 \
+  --output "./example/output_gaussian_dataset/coffee_martini" \
+  --use_short_id  \
+  --suppress_small_objects  \
+  --SAM_PRED_IOU_THRESHOLD 0.7
+
+cp -r ./example/output_gaussian_dataset/coffee_martini/Annotations ../data/dynerf/coffee_martini
+
+CUDA_VISIBLE_DEVICES=3 python demo/demo_automatic.py \
+  --chunk_size 4 \
+  --img_path "../data/hypernerf/chickchicken/rgb/2x" \
+  --amp \
+  --temporal_setting semionline \
+  --size 480 \
+  --output "./example/output_gaussian_dataset/chickchicken_fine" \
+  --use_short_id  \
+  --SAM_PRED_IOU_THRESHOLD 0.7
+
+CUDA_VISIBLE_DEVICES=3 python demo/demo_automatic.py \
+  --chunk_size 4 \
+  --img_path "../data/hypernerf/chickchicken/rgb/2x" \
+  --amp \
+  --temporal_setting semionline \
+  --size 480 \
+  --output "./example/output_gaussian_dataset/chickchicken_coarse" \
+  --use_short_id  \
+  --suppress_small_objects  \
+  --SAM_PRED_IOU_THRESHOLD 0.7
