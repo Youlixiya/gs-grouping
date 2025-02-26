@@ -21,6 +21,8 @@ fi
 # python train.py    -s $dataset_folder -r ${scale}  -m output/${dataset_name} --config_file config/gaussian_dataset/train.json --train_split
 
 CUDA_VISIBLE_DEVICES=1 python train.py  -s data/ovs3d/bed --images images_4  -m output/ovs3d/bed --config_file config/gaussian_dataset/train.json
+CUDA_VISIBLE_DEVICES=1 python train.py  -s data/ovs3d/bench --images images_4  -m output/ovs3d/bench --config_file config/gaussian_dataset/train.json
+CUDA_VISIBLE_DEVICES=1 python train.py  -s data/ovs3d/lawn --images images_4  -m output/ovs3d/lawn --config_file config/gaussian_dataset/train.json
 CUDA_VISIBLE_DEVICES=2 python train.py  -s data/ovs3d/room --images images_4  -m output/ovs3d/room --config_file config/gaussian_dataset/train.json
 CUDA_VISIBLE_DEVICES=3 python train.py  -s data/ovs3d/sofa --images images_4  -m output/ovs3d/sofa --config_file config/gaussian_dataset/train.json
 # Segmentation rendering using trained model

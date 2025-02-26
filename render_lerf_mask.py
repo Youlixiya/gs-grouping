@@ -76,7 +76,7 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
             pred_obj_mask = torch.zeros_like(view.objects).cpu().numpy()
             
         pred_mask_map = rendering.clone()
-        pred_mask_map[:, pred_obj_mask_bool] = pred_mask_map[:, pred_obj_mask_bool] * 0.5 + torch.tensor([[1, 0, 0]], device='cuda').reshape(3, 1) * 0.5
+        pred_mask_map[:, pred_obj_mask_bool] = pred_mask_map[:, pred_obj_mask_bool] * 0.5 + torch.tensor([[0, 0, 1]], device='cuda').reshape(3, 1) * 0.5
         pred_mask_map[:, ~pred_obj_mask_bool] /= 2
         gt_objects = view.objects
         gt_rgb_mask = visualize_obj(gt_objects.cpu().numpy().astype(np.uint8))
